@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: gray;
+  font-family: Helvetica;
+}
+
+
+.third {
+  width: 33vw;
+  height: 100%;
+  float: left;
+}
+
+input {
+  width: 100%;
+  height: 100%;
+}
+
+#download {
+  height: 55px;
+  width: 29vw;
+  margin-left: 2vw;
+  font-size: 1.4rem;
+  background-color: blue;
+  color: white;
+  border: none;
+}

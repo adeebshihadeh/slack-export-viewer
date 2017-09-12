@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+
+  <title>slack export viewer</title>
+</head>
+<body>
+
+
+<h1 style="text-align: center;">slack export viewer</h1>
+
+<div style="width: 100vw;">
+  <div id="metadata-third" class="third">
+    <h2 style="text-align: center;">metadata.json</h2>
+    <input type="file" name="metadata">
+  </div>
+  <div id="input-third" class="third">
+    <h2 style="text-align: center;">json files</h2>
+    <input type="file" name="convofiles" multiple>
+  </div>
+  <div id="output-third" id="outfiles" class="third">
+    <h2 style="text-align: center;">converted files</h2>
+    <button id="download">download all</button>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
+</body>
+</html>

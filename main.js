@@ -18,7 +18,10 @@ function downloadFiles() {
 
 function translateFile(json) {
   var json = JSON.parse(json);
+  json.messages.reverse();
+
   var out = "";
+  
   for (line in json.messages) {
     var date = new Date(json.messages[line].ts * 1000);
     date.setTime(json.messages[line].ts * 1000);

@@ -62,6 +62,7 @@ $("input[name='metadata']").on("change", function(e) {
     addMetadata($(this).prop("files")[0]);
   } else {
     alert("file must be named metadata.json");
+    $(this).val("");
   }
 });
 

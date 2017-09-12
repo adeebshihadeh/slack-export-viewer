@@ -21,7 +21,7 @@ function translateFile(json) {
   json.messages.reverse();
 
   var out = "";
-  
+
   for (line in json.messages) {
     var date = new Date(json.messages[line].ts * 1000);
     date.setTime(json.messages[line].ts * 1000);
@@ -59,7 +59,6 @@ function addMetadata(file) {
 
 $("input[name='metadata']").on("change", function(e) {
   if ($(this).prop("files")[0].name === "metadata.json") {
-    console.log($(this).prop("files")[0]);
     addMetadata($(this).prop("files")[0]);
   } else {
     console.log("file must be named metadata.json");
@@ -67,7 +66,6 @@ $("input[name='metadata']").on("change", function(e) {
 });
 
 $("input[name='convofiles']").on("change", function(e) {
-  console.log($(this).prop("files"));
   for (var i = $(this).prop("files").length; i > 0; i--) {
     addFile($(this).prop("files")[i-1]);
   }

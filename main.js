@@ -1,18 +1,22 @@
 var metadata;
-var files = [];
+var files = {};
+
+function downloadFile(file) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(translateFile(files[file])));
+  element.setAttribute('download', file.replace(".json", ".txt"));
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
 
 function downloadFiles() {
   for (file in files) {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(files[file].translated));
-    element.setAttribute('download', files[file].name.replace(".json", ".txt"));
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
+    downloadFile(file);
   }
 }
 
@@ -38,7 +42,8 @@ function addFile(file) {
 
   reader.onload = (function(theFile) {
     return function(e) {
-      files.push({"name": file.name, "raw": (e.target.result), "translated": translateFile(e.target.result)});
+      files[file.name] = e.target.result;
+      updateTables();
     };
   })(file);
 
@@ -57,6 +62,19 @@ function addMetadata(file) {
   reader.readAsText(file);
 }
 
+function modRow(filename) {
+  $("#input-table").append("<tr><th>" + filename +  "</th><th><button class='remove-file'>remove</button></th></tr>");
+  $("#output-table").append("<tr><th>" + filename.replace(".json", ".txt") +  "</th><th><button class='download-file'>download</button></th></tr>");
+}
+
+function updateTables() {
+  $("table").empty();
+
+  for (file in files) {
+    modRow(file);
+  } 
+}
+
 $("input[name='metadata']").on("change", function(e) {
   if ($(this).prop("files")[0].name === "metadata.json") {
     addMetadata($(this).prop("files")[0]);
@@ -72,8 +90,19 @@ $("input[name='convofiles']").on("change", function(e) {
   }
 });
 
-$("#download").click(function() {
+$("#download-all").click(function() {
   if (metadata && files) {
     downloadFiles();
   }
+});
+
+$(document).on("click", ".download-file", function() {
+  if (metadata) {
+    downloadFile($(this).parent().prev().text().replace(".txt", ".json"));
+  }
+});
+
+$(document).on("click", ".remove-file", function() {
+  delete files[$(this).parent().prev().text()];
+  updateTables();
 });

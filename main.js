@@ -110,3 +110,7 @@ $(document).on("click", ".remove-file", function() {
 $(document).on("click", ".preview-file", function() {
   $("#preview-text").text(translateFile(files[$(this).parent().prev().text().replace(".txt", ".json")]));
 });
+
+$(document).ready(function() {
+  $("input").val("");
+});

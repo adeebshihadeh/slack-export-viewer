@@ -88,6 +88,7 @@ $("input[name='convofiles']").on("change", function(e) {
   for (var i = $(this).prop("files").length; i > 0; i--) {
     addFile($(this).prop("files")[i-1]);
   }
+  $("input[name='convofiles']").val("");
 });
 
 $("#download-all").click(function() {

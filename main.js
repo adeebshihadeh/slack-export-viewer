@@ -64,7 +64,7 @@ function addMetadata(file) {
 
 function modRow(filename) {
   $("#input-table").append("<tr><th>" + filename +  "</th><th><button class='remove-file'>remove</button></th></tr>");
-  $("#output-table").append("<tr><th>" + filename.replace(".json", ".txt") +  "</th><th><button class='download-file'>download</button></th></tr>");
+  $("#output-table").append("<tr><th>" + filename.replace(".json", ".txt") +  "</th><th><button class='download-file'>download</button><button class='preview-file' data-featherlight='#preview'>preview</button></th></tr>");
 }
 
 function updateTables() {
@@ -105,4 +105,8 @@ $(document).on("click", ".download-file", function() {
 $(document).on("click", ".remove-file", function() {
   delete files[$(this).parent().prev().text()];
   updateTables();
+});
+
+$(document).on("click", ".preview-file", function() {
+  $("#preview-text").text(translateFile(files[$(this).parent().prev().text().replace(".txt", ".json")]));
 });

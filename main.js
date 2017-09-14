@@ -65,6 +65,7 @@ $("input[name='metadata']").on("change", function(e) {
     readFile($(this).prop("files")[0], function(file) {
       metadata = JSON.parse(file.content);
     });
+    $("input[name='convofiles']").prop("disabled", false);
   } else {
     alert("file must be named metadata.json");
     $(this).val("");
@@ -104,4 +105,5 @@ $(document).on("click", ".preview-file", function() {
 
 $(document).ready(function() {
   $("input").val("");
+  $("input[name='convofiles']").prop("disabled", true);
 });

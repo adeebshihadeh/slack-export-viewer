@@ -28,7 +28,6 @@ function translateFile(json) {
 
   for (line in json.messages) {
     var date = new Date(json.messages[line].ts * 1000);
-    date.setTime(json.messages[line].ts * 1000);
     var utcDate = new Date(date.toUTCString());
     utcDate.setHours(utcDate.getHours()-8);
 
@@ -42,7 +41,7 @@ function readFile(file, callback) {
 
   reader.onload = (function() {
     return function(e) {
-      callback(e.target.result);
+      callback({"name": file.name, "content": e.target.result});
     };
   })(file);
 
@@ -63,8 +62,8 @@ function updateTables() {
 
 $("input[name='metadata']").on("change", function(e) {
   if ($(this).prop("files")[0].name === "metadata.json") {
-    readFile($(this).prop("files")[0], function(content) {
-      metadata = JSON.parse(content);
+    readFile($(this).prop("files")[0], function(file) {
+      metadata = JSON.parse(file.content);
     });
   } else {
     alert("file must be named metadata.json");
@@ -74,9 +73,8 @@ $("input[name='metadata']").on("change", function(e) {
 
 $("input[name='convofiles']").on("change", function(e) {
   for (var i = $(this).prop("files").length; i > 0; i--) {
-    var filename = $(this).prop("files")[i-1].name;
-    readFile($(this).prop("files")[i-1], function(content) {
-      files[filename] = content;
+    readFile($(this).prop("files")[i-1], function(file) {
+      files[file.name] = file.content;
       updateTables();
     });
   }

@@ -1,4 +1,4 @@
-var metadata;
+var users;
 var files = {};
 
 function downloadFile(file) {
@@ -31,7 +31,7 @@ function translateFile(json) {
     var utcDate = new Date(date.toUTCString());
     utcDate.setHours(utcDate.getHours()-8);
 
-    out += metadata.users[json.messages[line].user] + " " + new Date(utcDate) + " " + json.messages[line].text + "\n";
+    out += users[json.messages[line].user] + " " + new Date(utcDate) + " " + json.messages[line].text + "\n";
   }
   return out;
 }
@@ -60,14 +60,14 @@ function updateTables() {
   } 
 }
 
-$("input[name='metadata']").on("change", function(e) {
-  if ($(this).prop("files")[0].name === "metadata.json") {
+$("input[name='users']").on("change", function(e) {
+  if ($(this).prop("files")[0].name === "users.json") {
     readFile($(this).prop("files")[0], function(file) {
-      metadata = JSON.parse(file.content);
+      users = JSON.parse(file.content);
     });
     $("input[name='convofiles']").prop("disabled", false);
   } else {
-    alert("file must be named metadata.json");
+    alert("file must be named users.json");
     $(this).val("");
   }
 });
@@ -83,13 +83,13 @@ $("input[name='convofiles']").on("change", function(e) {
 });
 
 $("#download-all").click(function() {
-  if (metadata && files) {
+  if (users && files) {
     downloadFiles();
   }
 });
 
 $(document).on("click", ".download-file", function() {
-  if (metadata) {
+  if (users) {
     downloadFile($(this).parent().prev().text().replace(".txt", ".json"));
   }
 });

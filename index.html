@@ -12,16 +12,16 @@
 <h1>slack export viewer</h1>
 
 <div>
-  <div id="metadata-third" class="third">
-    <h2>metadata.json</h2>
-    <input type="file" name="metadata" accept=".json">
+  <div class="third">
+    <h2>users.json</h2>
+    <input type="file" name="users" accept=".json">
   </div>
-  <div id="input-third" class="third">
+  <div class="third">
     <h2>json files</h2>
     <input type="file" name="convofiles" accept=".json" multiple>
     <table id="input-table"></table>
   </div>
-  <div id="output-third" id="outfiles" class="third">
+  <div id="outfiles" class="third">
     <h2>txt files</h2>
     <button id="download-all">download all</button>
     <table id="output-table"></table>
@@ -35,6 +35,7 @@
 
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="featherlight.min.js"></script>
+
 <script type="text/javascript" src="main.js"></script>
 
 </body>
